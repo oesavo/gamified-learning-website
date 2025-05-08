@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #303030;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,26 +23,30 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
+  display:flex; 
+  justify-content: start; 
+  align-items: start;
+  place-items: start;
   min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+  line-height: 0;
+  display:flex; 
+  justify-content: left; 
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
+  margin-right: 5px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #504bec;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -52,6 +56,63 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.Dialog {
+  color: black;
+}
+
+textarea {
+  resize: none;
+}
+
+#red-button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  margin-right: 5px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #ec4b50;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+#evaluate-button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  margin-right: 5px;
+  margin-top: 6px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #3da035;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+#warning-button {
+  color: #ec4b50;
+  background-color: #242424;
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+#bottom-bar { 
+  width: 15%;
+  background-color: #242424;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#output {
+  display: inline-block;
+  height: 480px;
+  width: 30%;
 }
 
 @media (prefers-color-scheme: light) {
