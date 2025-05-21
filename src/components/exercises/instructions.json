@@ -1,5 +1,5 @@
 {
-    "exercise1": "Exercise 1: Print \"Hello world!\" in the console using the blocks on the right. You can open your browsers console to see if it works by pressing 'Ctrl' + J. Remember capitalization!",
-    "exercise2": "Exercise 2: "
+    "exercise1": "Print \"Hello world!\" in the console using the blocks on the right. You can open your browser's console to see if it works by pressing 'Ctrl + Shift + J'. Remember capital letters and the exclamation mark!",
+    "exercise2": "You have a variable called apples that represents the number of apples you have. Find out how many apples you have by printing the variable in your console and then add more apples until you have 10."
 
 }

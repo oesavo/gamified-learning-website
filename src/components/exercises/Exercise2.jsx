@@ -6,6 +6,8 @@ const Exercise2 = (props) => {
     return (
         <BlocklyComponent 
         appReference={props.appReference}
+        exerciseNumber={2}
+        sounds={false}
         readOnly={false}
         trashcan={true}
         
@@ -14,9 +16,18 @@ const Exercise2 = (props) => {
           drag: true,
           wheel: true,
       }}
-      initialXml={`<xml xmlns="http://www.w3.org/1999/xhtml"><block type="controls_if" x="0" y="0"></block></xml>`}>
-      <Block type="print_block"></Block>
-      <Block type="win_block"/>
+      initialXml={`<xml xmlns="http://www.w3.org/1999/xhtml"></xml>`}>
+        <Block type="print_block"></Block>
+        <Block type="win_block"/>
+        <Block type="controls_repeat"></Block>
+        <Block type='variable_block'></Block>
+        <Block type="math_number">
+            <Field name="NUM" NUM={10}></Field>
+          </Block>
+        <Block type="variables_set"></Block>
+        <Block type="variables_get"></Block>
+        <Block type="add_one_block"></Block>
+        <Block type="variable_apple"></Block>
     </BlocklyComponent>
     )
 }

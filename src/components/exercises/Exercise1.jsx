@@ -8,6 +8,8 @@ const Exercise1 = (props) => {
       <>
         <BlocklyComponent
             appReference={props.appReference}
+            exerciseNumber={1}
+            sounds={false}
             readOnly={false}
             trashcan={true}
             maxBlocks={4}
@@ -17,10 +19,7 @@ const Exercise1 = (props) => {
               wheel: true,
           }}
           initialXml={`<xml xmlns="http://www.w3.org/1999/xhtml"></xml>`}>
-          <Block type="win_block"></Block>
           <Block type="print_block"></Block>
-          <Block type="variables_set"></Block>
-          <Block type="variables_get"></Block>
           <Block type="text"/>
         </BlocklyComponent>
         </>

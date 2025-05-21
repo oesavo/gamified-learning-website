@@ -4,7 +4,10 @@ import modelAnswers from '../../exercises/modelAnswers.json' with {type: 'json'}
 import currentAnswers from '../../exercises/currentAnswers.json' with {type: 'json'}
 
 import {useEffect, useRef, use, useState} from 'react';
-import { Alert, Button, Dialog, DialogTitle, Snackbar} from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogTitle, Divider, Snackbar, Stack} from '@mui/material';
+
+import BlocklyAlert from '../../react_components/BlocklyAlert';
+import SolveDialog from '../../react_components/SolveDialog';
 
 //Imports Blockly
 import * as Blockly from 'blockly/core';
@@ -25,20 +28,20 @@ function BlocklyComponent(props) {
   const toolbox = useRef();
   let primaryWorkspace = useRef();
 
-  const [open, setOpen] = useState(false);
-  const [snackOpen, setSnackOpen] = useState(false)
-  const [warningState, setWarningState] = useState(false)
+  const [solveDialogOpen, setSolveDialogOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false)
+  const [warningOpen, setWarningOpen] = useState(false)
   const [passCondition, setPassCondition] = useState(false)
   const appReference = props.appReference
+  const exerciseNumber = props.exerciseNumber
 
-  const vertical = "center"
-  const horizontal = "top"
+  let apple = 5
 
   const handleClear = () => {
-    setOpen(true)
+    setSolveDialogOpen(true)
   }
   const handleClose = () => {
-    setOpen(false)
+    setSolveDialogOpen(false)
   }
   const handleReset = () => {
     primaryWorkspace.current.clear()
@@ -50,22 +53,33 @@ function BlocklyComponent(props) {
     primaryWorkspace.current.dispose()
     appReference()
   }
+
   const openWarning = () => {
-    setWarningState(true)
+    setWarningOpen(true)
   }
   const closeWarning = () => {
-    setWarningState(false)
+    setWarningOpen(false)
   }
-
-  const closeSnack = () => {
-    setSnackOpen(false)
+  const closeError = () => {
+    setErrorOpen(false)
   }
 
   const checkAnswer = () => {
+    let correctAnswer = null
     function checkAnswer(answer) {
-      return answer === modelAnswers.exercise1;
+      if (exerciseNumber === 1) {
+        correctAnswer = modelAnswers.exercise1
+        return answer === modelAnswers.exercise1
+      }
+      if (exerciseNumber === 2) {
+        correctAnswer = modelAnswers.exercise2
+        return answer === modelAnswers.exercise2
+      }
     }
-    if (currentAnswers.answer.find(checkAnswer) === modelAnswers.exercise1) {
+    if (currentAnswers.answer.find(checkAnswer) === correctAnswer) {
+      setPassCondition(true)
+    }
+    if (apple === 10) {
       setPassCondition(true)
     }
   }
@@ -88,7 +102,7 @@ function BlocklyComponent(props) {
     if (passCondition) {
       handleClear()
     } else {
-      setSnackOpen(true)
+      setErrorOpen(true)
     }
   }
 
@@ -114,32 +128,17 @@ function BlocklyComponent(props) {
 
   return (
     <React.Fragment>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={snackOpen}
-        onClose={closeSnack}
-        autoHideDuration={2000}>
-        <Alert variant="filled" severity="error">
-          Try again!
-        </Alert>
-      </Snackbar>
-      <Snackbar anchorOrigin={{ vertical, horizontal }} onClose={closeWarning} open={warningState}>
-        <Button variant="contained" color="warning" size="large" onClick={handleReset}>
-          Reset blocks?
-        </Button>
-      </Snackbar>
-      <Dialog open={open}>
-        <DialogTitle>You solved the problem!</DialogTitle>
-        <Button onClick={handleDispose}>Move to next exercise</Button>
-      </Dialog>
+      <BlocklyAlert handleReset={handleReset} snackOpen={errorOpen} closeSnack={closeError} warningState={warningOpen} closeWarning={closeWarning} ></BlocklyAlert>
+      <SolveDialog open={solveDialogOpen} handleDispose={handleDispose}></SolveDialog>
       <div ref={blocklyDiv} id="blocklyDiv" />
       <div ref={toolbox}>
         {props.children}
       </div>
-      <button onClick={generateCode}>Generate code</button>
-      <button id="red-button" onClick={openWarning}>Reset blocks</button>
-      <br></br>
-      <button id="evaluate-button" onClick={checkPassCondition}>Evaluate answer</button>
+      <Stack direction="row">
+        <button onClick={generateCode}>Generate code</button>
+        <button id="red-button" onClick={openWarning}>Reset blocks</button>
+        <button id="evaluate-button" onClick={checkPassCondition}>Evaluate</button>
+      </Stack>
     </React.Fragment>
   );
 }

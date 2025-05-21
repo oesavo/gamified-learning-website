@@ -56,3 +56,57 @@ Blockly.Blocks['print_block'] = {
   }
 }
 
+const assignVarBlock = {
+  type: 'variable_block',
+}
+
+Blockly.Blocks['variable_block'] = {
+  init: function() {
+    this.appendValueInput('number_value')
+    .appendField('let')
+    .setAlign(Blockly.inputs.Align.RIGHT)
+    .setCheck('Number')
+      .appendField(new Blockly.FieldDropdown([
+          ['apple', 'APPLENUM'],
+          ['pear', 'PEARNUM'],
+          ['fruits', 'FRUITSNUM']
+        ]), 'variables');
+    this.setInputsInline(true)
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip('Assign a numeric value to a variable.');
+    this.setColour(135);
+  }
+}
+
+const addOneBlock = {
+  type: 'add_one_block',
+}
+
+Blockly.Blocks['add_one_block'] = {
+  init: function() {
+    this.appendDummyInput('NAME')
+    //.setCheck('Number')
+      .appendField('Add one apple');
+    this.setInputsInline(true)
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip('Add one to the variable apple');
+    this.setColour(195);
+  }
+}
+
+const variable_apple = {
+  type: 'variable_apple',
+}
+
+Blockly.Blocks['variable_apple'] = {
+  init: function() {
+    this.appendDummyInput('NAME')
+      .appendField('apple');
+    this.setInputsInline(true)
+    this.setOutput(true, null);
+    this.setTooltip('Apple variable that stores the number of apples');
+    this.setColour(15);
+  }
+}
