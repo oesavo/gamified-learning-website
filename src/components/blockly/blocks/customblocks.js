@@ -85,9 +85,9 @@ const addOneBlock = {
 
 Blockly.Blocks['add_one_block'] = {
   init: function() {
-    this.appendDummyInput('NAME')
-    //.setCheck('Number')
-      .appendField('Add one apple');
+    this.appendValueInput('VALUE')
+    .setCheck('Number')
+    .appendField('apple +');
     this.setInputsInline(true)
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -105,7 +105,9 @@ Blockly.Blocks['variable_apple'] = {
     this.appendDummyInput('NAME')
       .appendField('apple');
     this.setInputsInline(true)
-    this.setOutput(true, null);
+    //this.setOutput(true, null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setTooltip('Apple variable that stores the number of apples');
     this.setColour(15);
   }

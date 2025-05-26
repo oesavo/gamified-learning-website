@@ -25,12 +25,13 @@ javascriptGenerator.forBlock['variable_block'] = function(block) {
 }
 
 javascriptGenerator.forBlock['add_one_block'] = function(block) {
-  const blockValue = javascriptGenerator.valueToCode(block, 'NAME', 1)
-  const code = `apple++;\n`
+  const blockValue = javascriptGenerator.valueToCode(block, 'VALUE', 1)
+  const code = `apple = apple + ${blockValue};\n`
   return code
 }
 
 javascriptGenerator.forBlock['variable_apple'] = function(block) {
-  const code = `apple`
+  const numberOFApples = answers.apple
+  const code = `${numberOFApples};\n`
   return code
 }

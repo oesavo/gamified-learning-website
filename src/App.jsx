@@ -14,42 +14,54 @@ import Exercise3 from './components/exercises/Exercise3.jsx';
 import HelpDialog from './components/react_components/HelpDialog.jsx';
 import TopBar from './components/react_components/TopBar.jsx';
 import ExerciseInfo from './components/react_components/ExerciseInfo.jsx';
-import GamifiedSolveDialog from './components/react_components/GamifiedSolveDialog.jsx';
 
 const App = () => {
 
-  const [instructionsText, setInstructionsText] = useState(instructions.exercise1)
-  const [exerciseNo, setExerciseNo] = useState("Exercise 1")
-
-  const switchToExercise1 = () => {
-    setExerciseNo("Exercise 1")
-    setInstructionsText(instructions.exercise1)
-    setExercise(<Exercise1 appReference={switchToExercise2}></Exercise1>)
-  }
-  const switchToExercise2 = () => {
-    setExerciseNo("Exercise 2")
-    setInstructionsText(instructions.exercise2)
-    setExercise(<Exercise2 appReference={switchToExercise1}></Exercise2>)
-  }
-
-  const [exercise, setExercise] = useState(<Exercise1 appReference={switchToExercise2}></Exercise1>)
+  const [instructionsText, setInstructionsText] = useState(instructions.exercise3)
+  const [exerciseNo, setExerciseNo] = useState("Exercise 3")
   const [openDialog, setOpenDialog] = useState(true)
   const [helpDialogText, setHelpDialogText] = useState("This is where the instructions for how to use the application go to. Please close this dialog by clicking anywhere and start moving the blocks according to the instructions on the screen.")
-  const [exercisePoints, setExercisePoints] = useState([])
+  const [exercisePoints, setExercisePoints] = useState (new Map([
+        ["1", -1],
+        ["2", -1],
+        ["3", -1],
+        ["4", -1]
+        ]))
+  const switchToExercise1 = () => {
+      setExerciseNo("Exercise 1")
+      setInstructionsText(instructions.exercise1)
+      setExercise(<Exercise1 appReference={switchToExercise2} updatePoints={setExercisePoints} points={exercisePoints}></Exercise1>)
+  }
+  const switchToExercise2 = () => {
+      setExerciseNo("Exercise 2")
+      setInstructionsText(instructions.exercise2)
+      setExercise(<Exercise2 appReference={switchToExercise3} updatePoints={setExercisePoints} points={exercisePoints}></Exercise2>)
+  }
+  const switchToExercise3 = () => {
+      setExerciseNo("Exercise 3")
+      setInstructionsText(instructions.exercise3)
+      setExercise(<Exercise3 appReference={switchToExercise1} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
+  }
 
   const handleDialogClose = () => {
     setOpenDialog(false)
   }
   const handleDialogOpen = () => {
-    setHelpDialogText("This dialog will provide help for using the app.")
+    setHelpDialogText(instructions.helpText)
     setOpenDialog(true)
   }
+
+  const [exercise, setExercise] = useState(<Exercise3 appReference={switchToExercise1} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
 
   return(
     <>
       <HelpDialog handleDialogClose={handleDialogClose} openDialog={openDialog} helpDialogText={helpDialogText}></HelpDialog>
       <title>JavaScript Gamified!</title>
-      <TopBar handleDialogOpen={handleDialogOpen}></TopBar>
+      <TopBar handleDialogOpen={handleDialogOpen} points={exercisePoints} activeLevel={exerciseNo}
+      switchExercise1={switchToExercise1} 
+      switchExercise2={switchToExercise2}
+      switchExercise3={switchToExercise3}>
+      </TopBar>
       <ExerciseInfo exerciseNo={exerciseNo} instructionsText={instructionsText}></ExerciseInfo>
       <div id='exerciseDiv'>
         <div id='blocklyDiv' style={{display: 'inline-block'}}>

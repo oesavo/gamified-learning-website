@@ -2,15 +2,19 @@ import BlocklyComponent, {Block, Value, Field, Shadow, Category} from '../blockl
 import '../blockly/blocks/customblocks.js';
 import '../blockly/generator/generator';
 
-const Exercise3 = (props) => {
+const Exercise3 = ({appReference, updatePoints, points}) => {
 
     return (
       <>
         <BlocklyComponent
-            appReference={props.appReference}
+            appReference={appReference}
+            exerciseNumber={"3"}
+            updatePoints={updatePoints}
+            points={points}
+            sounds={false}
             readOnly={false}
             trashcan={true}
-            
+            maxBlocks={10}
             move={{
               scrollbars: true,
               drag: true,

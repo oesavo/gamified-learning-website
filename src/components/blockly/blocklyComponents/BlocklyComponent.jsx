@@ -34,6 +34,8 @@ function BlocklyComponent(props) {
   const [passCondition, setPassCondition] = useState(false)
   const appReference = props.appReference
   const exerciseNumber = props.exerciseNumber
+  const updatePoints = props.updatePoints
+  const points = props.points
 
   let apple = 5
 
@@ -51,6 +53,7 @@ function BlocklyComponent(props) {
     handleClose()
     document.getElementById("output").value = "Program output: \n\n"
     primaryWorkspace.current.dispose()
+    updatePoints(points.set(exerciseNumber,3))
     appReference()
   }
 
@@ -67,11 +70,11 @@ function BlocklyComponent(props) {
   const checkAnswer = () => {
     let correctAnswer = null
     function checkAnswer(answer) {
-      if (exerciseNumber === 1) {
+      if (exerciseNumber === "1") {
         correctAnswer = modelAnswers.exercise1
         return answer === modelAnswers.exercise1
       }
-      if (exerciseNumber === 2) {
+      if (exerciseNumber === "2") {
         correctAnswer = modelAnswers.exercise2
         return answer === modelAnswers.exercise2
       }
@@ -79,13 +82,14 @@ function BlocklyComponent(props) {
     if (currentAnswers.answer.find(checkAnswer) === correctAnswer) {
       setPassCondition(true)
     }
-    if (apple === 10) {
+    if (currentAnswers.apple === 10) {
       setPassCondition(true)
     }
   }
   
   const generateCode = () => {
     currentAnswers.answer = []
+    apple=5
     var code = javascriptGenerator.workspaceToCode(primaryWorkspace.current);
     let outputArea = document.getElementById("output")
     outputArea.value = "Program output: \n\n" + code
@@ -95,6 +99,7 @@ function BlocklyComponent(props) {
     } catch(error) {
       console.log(error)
     }
+    currentAnswers.apple=apple
     checkAnswer()
   }
 
@@ -107,13 +112,14 @@ function BlocklyComponent(props) {
   }
 
   useEffect(() => {
+    if(points.get(exerciseNumber)<0){points.set(exerciseNumber,0)}
     const {initialXml, children, ...rest} = props;
     primaryWorkspace.current = Blockly.inject(blocklyDiv.current, {
       toolbox: toolbox.current, 
       maxBlocks: 10,
       trashcan: true, 
       zoom: {controls: true, wheel: true, maxScale: 1.5, minScale: 0.5}, 
-      sounds: true,
+      //sounds: true,
       toolboxPosition: "end",
       ...rest,
     });
