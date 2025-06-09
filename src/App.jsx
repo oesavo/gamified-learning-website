@@ -1,7 +1,7 @@
 import React from 'react';
 import { use, useState, useEffect } from 'react'
 
-import { Accordion, AccordionDetails, AccordionSummary, AppBar, Box, Container, Dialog, DialogContent, DialogTitle, Divider, Drawer, Icon, IconButton, MenuList, MenuItem, TextField, Toolbar, Button, Typography, Menu } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, AppBar, Box, Container, Dialog, DialogContent, DialogTitle, Divider, Drawer, Icon, IconButton, MenuList, MenuItem, TextField, Toolbar, Button, Typography, Menu, Stack } from '@mui/material'
 
 import Footer from './components/footer'
 
@@ -14,55 +14,75 @@ import Exercise3 from './components/exercises/Exercise3.jsx';
 import HelpDialog from './components/react_components/HelpDialog.jsx';
 import TopBar from './components/react_components/TopBar.jsx';
 import ExerciseInfo from './components/react_components/ExerciseInfo.jsx';
+import Badge from './components/react_components/badge.jsx';
 
 const App = () => {
 
-  const [instructionsText, setInstructionsText] = useState(instructions.exercise3)
+  const [instructionsText, setInstructionsText] = useState(instructions.exercise3.task)
+  const [challengeText, setChallengeText] = useState(instructions.exercise3.challenge)
   const [exerciseNo, setExerciseNo] = useState("Exercise 3")
+  
+  const [badgeStates, setBadgeStates] = useState(new Map([
+    ["Exercise3Efficiency", false]
+  ]))
+  const [badgeCollected, setBadgeCollected] = useState(false)
+
   const [openDialog, setOpenDialog] = useState(true)
-  const [helpDialogText, setHelpDialogText] = useState("This is where the instructions for how to use the application go to. Please close this dialog by clicking anywhere and start moving the blocks according to the instructions on the screen.")
+  const [helpDialogText, setHelpDialogText] = useState([
+    instructions.dialogTexts.introduction.title,
+    instructions.dialogTexts.introduction.text]
+  )
+  const handleDialogClose = () => {
+    setOpenDialog(false)
+  }
+  const handleDialogOpen = () => {
+    setOpenDialog(true)
+  }
+
   const [exercisePoints, setExercisePoints] = useState (new Map([
         ["1", -1],
         ["2", -1],
         ["3", -1],
         ["4", -1]
         ]))
+  const badges = (new Map([
+    ["Exercise 3",<Stack direction="row"><Badge collectedState={badgeCollected} achievementTitle={"Efficiency"} achievementDescription={instructions.badges.exercise3} helpDialogSetter={handleDialogOpen} helpTextSetter={setHelpDialogText}/><Badge/></Stack>],
+    ["Exercise 4",<Stack direction="row"></Stack>]
+  ]))
+  const [rewardBlocks, setRewardBlocks] = useState(new Map([
+    ["rewardBlock", false]
+  ]))
+
   const switchToExercise1 = () => {
       setExerciseNo("Exercise 1")
-      setInstructionsText(instructions.exercise1)
+      setInstructionsText(instructions.exercise1.task)
       setExercise(<Exercise1 appReference={switchToExercise2} updatePoints={setExercisePoints} points={exercisePoints}></Exercise1>)
   }
   const switchToExercise2 = () => {
       setExerciseNo("Exercise 2")
-      setInstructionsText(instructions.exercise2)
-      setExercise(<Exercise2 appReference={switchToExercise3} updatePoints={setExercisePoints} points={exercisePoints}></Exercise2>)
+      setInstructionsText(instructions.exercise2.task)
+      setChallengeText(instructions.exercise2.challenge)
+      setExercise(<Exercise2 appReference={switchToExercise3} rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} updatePoints={setExercisePoints} points={exercisePoints}></Exercise2>)
   }
   const switchToExercise3 = () => {
       setExerciseNo("Exercise 3")
-      setInstructionsText(instructions.exercise3)
-      setExercise(<Exercise3 appReference={switchToExercise1} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
+      setInstructionsText(instructions.exercise3.task)
+      setChallengeText(instructions.exercise3.challenge)
+      setExercise(<Exercise3 badgeStates={badgeStates} setBadgeStates={setBadgeCollected} appReference={switchToExercise1} rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
   }
 
-  const handleDialogClose = () => {
-    setOpenDialog(false)
-  }
-  const handleDialogOpen = () => {
-    setHelpDialogText(instructions.helpText)
-    setOpenDialog(true)
-  }
-
-  const [exercise, setExercise] = useState(<Exercise3 appReference={switchToExercise1} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
+  const [exercise, setExercise] = useState(<Exercise3 rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} badgeStates={badgeStates} setBadgeStates={setBadgeCollected} appReference={switchToExercise2} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
 
   return(
-    <>
-      <HelpDialog handleDialogClose={handleDialogClose} openDialog={openDialog} helpDialogText={helpDialogText}></HelpDialog>
+    <div id='mainDiv'>
+      <HelpDialog handleDialogClose={handleDialogClose} openDialog={openDialog} helpDialogText={helpDialogText[1]} dialogTitle={helpDialogText[0]}></HelpDialog>
       <title>JavaScript Gamified!</title>
-      <TopBar handleDialogOpen={handleDialogOpen} points={exercisePoints} activeLevel={exerciseNo}
+      <TopBar handleDialogOpen={handleDialogOpen} helpTextSetter={setHelpDialogText} points={exercisePoints} activeLevel={exerciseNo}
       switchExercise1={switchToExercise1} 
       switchExercise2={switchToExercise2}
       switchExercise3={switchToExercise3}>
       </TopBar>
-      <ExerciseInfo exerciseNo={exerciseNo} instructionsText={instructionsText}></ExerciseInfo>
+      <ExerciseInfo exerciseNo={exerciseNo} instructionsText={instructionsText} challengeText={challengeText} achievements={badges.get(exerciseNo)}></ExerciseInfo>
       <div id='exerciseDiv'>
         <div id='blocklyDiv' style={{display: 'inline-block'}}>
           <textarea 
@@ -77,7 +97,7 @@ const App = () => {
           <Footer/>
         </Container>
       </div>
-    </>
+    </div>
   )
 }
 

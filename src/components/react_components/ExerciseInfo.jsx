@@ -1,6 +1,6 @@
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material"
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Divider } from "@mui/material"
 
-const ExerciseInfo = ({exerciseNo, instructionsText}) => {
+const ExerciseInfo = ({exerciseNo, instructionsText, challengeText, achievements}) => {
     return(
         <Accordion defaultExpanded sx={(theme) => ({
                   boxShadow: 1,
@@ -16,11 +16,14 @@ const ExerciseInfo = ({exerciseNo, instructionsText}) => {
                     color: 'grey.300',
                   }),
                 })}>
-                <AccordionSummary sx={(theme) => ({borderRadius: 2})}>
+                <AccordionSummary sx={(theme) => ({borderRadius: 2, height: 0})}>
                   <Typography variant='overline'>{exerciseNo}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography variant='body2'>{instructionsText}</Typography>
+                  <Typography variant='body2' sx={{marginBottom: 1}}>Task: {instructionsText}</Typography>
+                  <Divider sx={{bgcolor: 'lightslategray'}}/>
+                  <Typography variant='body3' sx={{fontWeight: "bold"}}>{challengeText}</Typography>
+                  {achievements}
                 </AccordionDetails>
               </Accordion>
     )

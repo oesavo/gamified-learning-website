@@ -35,6 +35,7 @@ Blockly.Blocks['win_block'] = {
     this.setStyle('loop_blocks');
     this.setTooltip('This block lets you win instantly.');
     this.setColour(0);
+    //this.setDisabledReason(true, "locked")
   },
 }
 

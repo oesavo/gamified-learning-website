@@ -2,7 +2,7 @@
 import { Dialog, DialogContent, DialogTitle, IconButton, Divider, Typography } from '@mui/material';
 import CloseIcon from './material-icons/close_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg'
 
-const HelpDialog = ({handleDialogClose, openDialog, helpDialogText}) => {
+const HelpDialog = ({handleDialogClose, openDialog, helpDialogText, dialogTitle}) => {
 
     return(
         <Dialog id="dialog" onClose={handleDialogClose} open={openDialog}
@@ -18,7 +18,7 @@ const HelpDialog = ({handleDialogClose, openDialog, helpDialogText}) => {
               color: 'grey.300',
             }),
           })}>
-        <DialogTitle sx={{ p: 2 }}>Welcome to JavaScript with Blockly</DialogTitle>
+        <DialogTitle sx={{ p: 2 }}>{dialogTitle}</DialogTitle>
         <IconButton
           aria-label="close"
           onClick={handleDialogClose}

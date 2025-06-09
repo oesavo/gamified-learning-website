@@ -2,8 +2,11 @@ import BlocklyComponent, {Block, Value, Field, Shadow, Category} from '../blockl
 import '../blockly/blocks/customblocks.js';
 import '../blockly/generator/generator';
 
-const Exercise3 = ({appReference, updatePoints, points}) => {
-
+const Exercise3 = ({appReference, updatePoints, points, badgeStates, setBadgeStates, rewardBlocks, setRewardBlock}) => {
+    let unlockableBlock = <Block type="text"></Block>
+    if (rewardBlocks.get("rewardBlock") === true) {
+      unlockableBlock = <Block type="win_block"></Block>
+    }
     return (
       <>
         <BlocklyComponent
@@ -11,6 +14,10 @@ const Exercise3 = ({appReference, updatePoints, points}) => {
             exerciseNumber={"3"}
             updatePoints={updatePoints}
             points={points}
+            rewardBlocks={rewardBlocks}
+            setRewardBlock={setRewardBlock}
+            badgeStates={badgeStates}
+            setBadgeStates={setBadgeStates}
             sounds={false}
             readOnly={false}
             trashcan={true}
@@ -21,6 +28,22 @@ const Exercise3 = ({appReference, updatePoints, points}) => {
               wheel: true,
           }}
           initialXml={`<xml xmlns="http://www.w3.org/1999/xhtml"><block type="controls_if" x="0" y="0"></block></xml>`}>
+          {unlockableBlock}
+          <Block type="win_block"></Block>
+          <Block type="text_append"></Block>
+          <Block type="text_join"></Block>
+          <Block type="text_length"></Block>
+          <Block type="text_isEmpty"></Block>
+          <Block type="text_indexOf"></Block>
+          <Block type="text_charAt"></Block>
+          <Block type="text_getSubstring"></Block>
+          <Block type="text_changeCase"></Block>
+          <Block type="text_trim"></Block>
+          <Block type="text_count"></Block>
+          <Block type="text_replace"></Block>
+          <Block type="text_reverse"></Block>
+          <Block type="text_print"></Block>
+          <Block type="text_prompt_ext"></Block>
           <Block type="print_block"></Block>
           <Block type="variables_set"></Block>
           <Block type="variables_get"></Block>
@@ -28,7 +51,6 @@ const Exercise3 = ({appReference, updatePoints, points}) => {
           <Block type="math_number">
             <Field name="NUM" NUM={10}></Field>
           </Block>
-          <Block type="win_block"/>
           <Block type="test_react_field"></Block>
           <Block type="controls_ifelse" />
           <Block type="logic_compare" />

@@ -4,8 +4,9 @@ import EmptyStar from './material-icons/star_100dp_EAC452_FILL0_wght400_GRAD0_op
 import FilledStar from './material-icons/star_100dp_EAC452_FILL1_wght400_GRAD0_opsz48.svg'
 
 
-const GamifiedSolveDialog = ({open, handleDispose, points}) => {
+const GamifiedSolveDialog = ({open, handleDispose, points, badgeUnlocked}) => {
     let contentText = "Congratulations!"
+    let badgeText = ""
     const iconStack = (points) => {
         switch (points) {
             case 1:
@@ -38,6 +39,9 @@ const GamifiedSolveDialog = ({open, handleDispose, points}) => {
             
         }
     }
+    if (badgeUnlocked) {
+        badgeText = "New badge unlocked! Check your badges in the exercise!"
+    }
 
     return(
         <Dialog open={open} id="ratkaistu"
@@ -61,6 +65,7 @@ const GamifiedSolveDialog = ({open, handleDispose, points}) => {
                 </Stack>
                 <br></br>
                 <Typography>{contentText}</Typography>
+                <Typography>{badgeText}</Typography>
             </DialogContent>
             <DialogActions>
             <Button onClick={handleDispose}>Next exercise</Button>

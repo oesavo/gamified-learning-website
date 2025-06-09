@@ -2,6 +2,7 @@ import React from 'react';
 import { use, useState, useEffect } from 'react'
 
 import { AppBar, Toolbar, IconButton, Typography, Menu, MenuItem, MenuList, ListItemIcon, ListItemText, Dialog, DialogContent, DialogActions, Button } from "@mui/material"
+import instructions from '../exercises/instructions.json' with { type: 'json' };
 
 //Icons
 import MenuIcon from "./material-icons/menu_32dp_D9D9D9_FILL0_wght400_GRAD0_opsz40.svg"
@@ -9,7 +10,15 @@ import HelpIcon from './material-icons/help_32dp_D9D9D9_FILL0_wght400_GRAD0_opsz
 import EmptyStar from './material-icons/star_100dp_EAC452_FILL0_wght400_GRAD0_opsz48.svg'
 import Star from './material-icons/star_100dp_EAC452_FILL1_wght400_GRAD0_opsz48.svg'
 
-const TopBar = ({handleDialogOpen, points, activeLevel, switchExercise1, switchExercise2, switchExercise3, switchExercise4}) => {
+const TopBar = ({handleDialogOpen, helpTextSetter, points, activeLevel, switchExercise1, switchExercise2, switchExercise3, switchExercise4}) => {
+    const showDescription = () => {
+      helpTextSetter([
+        instructions.dialogTexts.help.title,
+        instructions.dialogTexts.help.text]
+      )
+      handleDialogOpen()
+    }
+  
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleOpenMenu = (event) => {
@@ -56,7 +65,7 @@ const TopBar = ({handleDialogOpen, points, activeLevel, switchExercise1, switchE
         <AppBar position='static' sx={{backgroundColor: 'rgb(63, 63, 83)', borderRadius: 2, marginBottom: 1}}>
                 <Toolbar>
                   <Typography variant='h4' component="div" sx={{ flexGrow: 1 }}>JavaScript Gamified!</Typography>
-                  <IconButton edge="end" onClick={handleDialogOpen}>
+                  <IconButton edge="end" onClick={showDescription}>
                       <img src={HelpIcon}></img>
                   </IconButton>
                   <IconButton id="menu-button" edge="end" onClick={handleOpenMenu}>

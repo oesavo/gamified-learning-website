@@ -1,7 +1,27 @@
 {
-    "helpText": "This dialog will provide help to the user",
-    "exercise1": "Print \"Hello world!\" in the console using the blocks on the right. You can open your browser's console to see if it works by pressing 'Ctrl + Shift + J'. Remember capital letters and the exclamation mark!",
-    "exercise2": "You have a variable called apples that represents the number of apples you have. Find out how many apples you have by printing the variable in your console and then add more apples until you have 10.",
-    "exercise3": "Something with logic comparisons and challenges. Unlocks a reward?",
+    "dialogTexts": {
+        "introduction": {
+            "title": "Welcome to JavaScript with Blockly!",
+            "text": "This is where the instructions for how to use the application go to. Please close this dialog by clicking anywhere and start moving the blocks according to the instructions on the screen."
+        },
+        "help": {
+            "title": "How to use Blockly:",
+            "text": "This dialog will provide help to the user"
+        }
+    },
+    "badges": {
+        "exercise3": "Use minimum number of blocks to solve the exercise."
+    },
+    "exercise1": {
+        "task": "Print \"Hello world!\" in the console using the blocks on the right. You can open your browser's console to see if it works by pressing 'Ctrl + Shift + J'. Remember capital letters and the exclamation mark!"
+    },
+    "exercise2": {
+        "task":  "You have a variable called apples that represents the number of apples you have. Find out how many apples you have by printing the variable in your console and then add more apples until you have 10.",
+        "challenge": "Challenge: Use maximum of 4 blocks to get a new block as a reward for the next exercise!"
+    },
+    "exercise3": {
+        "task": "Something with logic comparisons and challenges. Unlocks a reward?",
+        "challenge": "Challenge: Solve the exercise with maximum of 4 blocks to unlock a new badge!"
+    },
     "exercise4": "Get a car accross so it doesn't run into red lights. The lights change periodically. Has badges."
 }
