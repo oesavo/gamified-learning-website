@@ -35,3 +35,15 @@ javascriptGenerator.forBlock['variable_apple'] = function(block) {
   const code = `${numberOFApples};\n`
   return code
 }
+javascriptGenerator.forBlock['variable_block'] = function(block) {
+  const blockValue = javascriptGenerator.valueToCode(block, 'VALUE', 1)
+  answers.exercise3 = blockValue
+  const code = `i = ${blockValue};\n`
+  return code
+}
+
+javascriptGenerator.forBlock['sound_block'] = function(block) {
+  const value = "'" + block.getFieldValue('SOUND') + "'";
+  const code = 'playSound(' + value + ');\n';
+  return code
+}

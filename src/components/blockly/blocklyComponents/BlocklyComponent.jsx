@@ -11,6 +11,14 @@ import { Alert, Button, Dialog, DialogActions, DialogTitle, Divider, Snackbar, S
 import BlocklyAlert from '../../react_components/BlocklyAlert';
 import GamifiedSolveDialog from '../../react_components/GamifiedSolveDialog';
 
+//Music player and sounds
+import MusicMaker from './music_maker';
+import c4 from './sounds/c4.m4a'
+import d4 from './sounds/d4.m4a'
+import e4 from './sounds/e4.m4a'
+import f4 from './sounds/f4.m4a'
+import g4 from './sounds/g4.m4a'
+
 //Imports Blockly
 import * as Blockly from 'blockly/core';
 //Imports JS Generator
@@ -38,6 +46,7 @@ function BlocklyComponent(props) {
   const [passCondition, setPassCondition] = useState(false)
   const [currentExercisePoints, setCurrentExercisePoints] = useState(0)
   const [badgeUnlocked, setBadgeUnlocked] = useState(false)
+  const [blockUnlocked, setBlockUnlocked] = useState(false)
 
   //Prop references from the main app class used for communication between components
   const switchToNextExercise = props.appReference
@@ -48,7 +57,7 @@ function BlocklyComponent(props) {
   const setBadgeStates = props.setBadgeStates
   const rewardBlocks = props.rewardBlocks
   const setRewardBlocks = props.setRewardBlocks
-
+  const musicPlayer = MusicMaker
 
   const handleClear = () => {
     setSolveDialogOpen(true)
@@ -78,6 +87,26 @@ function BlocklyComponent(props) {
     setErrorOpen(false)
   }
 
+  const playSound = (sound) => {
+    switch (sound) {
+      case 'c4':
+        MusicMaker.queueSound(c4)
+        break
+      case 'd4':
+        MusicMaker.queueSound(d4)
+        break
+      case 'e4':
+        MusicMaker.queueSound(e4)
+        break
+      case 'f4':
+        MusicMaker.queueSound(f4)
+        break
+      case 'g4':
+        MusicMaker.queueSound(g4)
+        break
+    }
+  }
+
   const checkAnswer = () => {
     let correctAnswer = null
     function checkAnswer(answer) {
@@ -89,6 +118,10 @@ function BlocklyComponent(props) {
         correctAnswer = modelAnswers.exercise2
         return answer === modelAnswers.exercise2
       }
+      if (exerciseNumber === "3") {
+        correctAnswer = modelAnswers.exercise3
+        return answer === modelAnswers.exercise3
+      }
     }
     if (currentAnswers.answer.find(checkAnswer) === correctAnswer) {
       setPassCondition(true)
@@ -98,19 +131,27 @@ function BlocklyComponent(props) {
       setPassCondition(true)
       if (primaryWorkspace.current.getAllBlocks().length <= 4) {
         setCurrentExercisePoints(3)
-        setRewardBlocks(rewardBlocks.set("rewardBlock", true))
       } else if (primaryWorkspace.current.getAllBlocks().length === 5) {
         setCurrentExercisePoints(2)
       } else {
         setCurrentExercisePoints(1)
       }
     }
-
+    if (exerciseNumber === "3" && currentAnswers.answer.find(checkAnswer) === correctAnswer) {
+      setPassCondition(true)
+      setCurrentExercisePoints(3)
+      setBlockUnlocked(true)
+      setRewardBlocks(rewardBlocks.set("rewardBlock", true))
+    }
+    MusicMaker.play()
   }
   
   const generateCode = () => {
+    //console.log(primaryWorkspace.current.getAllBlocks()[0].type)
+    MusicMaker.queue_ = []
     currentAnswers.answer = []
     let apple=5
+    let i = undefined
     var code = javascriptGenerator.workspaceToCode(primaryWorkspace.current);
     let outputArea = document.getElementById("output")
     outputArea.value = "Program output: \n\n" + code
@@ -125,10 +166,9 @@ function BlocklyComponent(props) {
   }
 
   const checkPassCondition = () => {
-    
     if (passCondition) {
-      if (exerciseNumber === "3" && primaryWorkspace.current.getAllBlocks().length <= 3) {
-        setBadgeStates(badgeStates.set("Exercise3Efficiency",true))
+      if (exerciseNumber === "2" && primaryWorkspace.current.getAllBlocks().length <= 4) {
+        setBadgeStates(badgeStates.set("Exercise2Efficiency",true))
         setBadgeUnlocked(true)
       }
       handleClear()
@@ -176,12 +216,13 @@ function BlocklyComponent(props) {
         primaryWorkspace.current,
       );
     }
+    primaryWorkspace.current.createVariable("i")
   }, [primaryWorkspace, toolbox, blocklyDiv, props]);
 
   return (
     <React.Fragment>
       <BlocklyAlert handleReset={handleReset} snackOpen={errorOpen} closeSnack={closeError} warningState={warningOpen} closeWarning={closeWarning} ></BlocklyAlert>
-      <GamifiedSolveDialog open={solveDialogOpen} handleDispose={handleDispose} points={currentExercisePoints} badgeUnlocked={badgeUnlocked}></GamifiedSolveDialog>
+      <GamifiedSolveDialog open={solveDialogOpen} handleDispose={handleDispose} points={currentExercisePoints} badgeUnlocked={badgeUnlocked} blockUnlocked={blockUnlocked}></GamifiedSolveDialog>
       <div ref={blocklyDiv} id="blocklyDiv" />
       <div ref={toolbox}>
         {props.children}

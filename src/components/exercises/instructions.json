@@ -2,11 +2,11 @@
     "dialogTexts": {
         "introduction": {
             "title": "Welcome to JavaScript with Blockly!",
-            "text": "This is where the instructions for how to use the application go to. Please close this dialog by clicking anywhere and start moving the blocks according to the instructions on the screen."
+            "text": "Thank you for participating in testing the gamified JavaScript learning app prototype! There are three exercises where different elements of gamification are introduced and a fourth extra one. You can answer the questioneer of how you felt about the different gamification elements after clearing the exercises. Please close this dialog by clicking anywhere and start moving the blocks according to the instructions on the screen."
         },
         "help": {
             "title": "How to use Blockly:",
-            "text": "This dialog will provide help to the user"
+            "text": "Select blocks from the toolbox on the right and connect them to generate code. Press the evaluate button to attempt clearing the exercise. You can get more information on what each block does by hovering over them. After clearing a level you can switch to earlier one from the menu on top right corner."
         }
     },
     "badges": {
@@ -17,11 +17,13 @@
     },
     "exercise2": {
         "task":  "You have a variable called apples that represents the number of apples you have. Find out how many apples you have by printing the variable in your console and then add more apples until you have 10.",
-        "challenge": "Challenge: Use maximum of 4 blocks to get a new block as a reward for the next exercise!"
-    },
-    "exercise3": {
-        "task": "Something with logic comparisons and challenges. Unlocks a reward?",
         "challenge": "Challenge: Solve the exercise with maximum of 4 blocks to unlock a new badge!"
     },
-    "exercise4": "Get a car accross so it doesn't run into red lights. The lights change periodically. Has badges."
+    "exercise3": {
+        "task": "You are given an array variable that has integers in it. Sort the integers into a rising order. NEED: a block that has the array, block that gets a value from the list, block that sets the value, something to check the answer with. Could just always assign the array whenever code is run and check that",
+        "challenge": "Challenge: Use --- block to clear the exercise."
+    },
+    "exercise4": {
+        "task": "Thank you for your participation! This is the last exercise where you can freely play with the reward block! You can still go back to the previous exercise to unlock the play notes block if you want to. Please remember to participate in the survey!"
+    }
 }

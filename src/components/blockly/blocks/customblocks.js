@@ -113,3 +113,78 @@ Blockly.Blocks['variable_apple'] = {
     this.setColour(15);
   }
 }
+
+const sound_block = {
+  type: 'sound_block',
+  message0: 'Play %1',
+  args0: [
+      {
+        type: 'field_dropdown',
+        name: 'SOUND',
+        options: [
+          ['C4', 'c4'],
+          ['D4', 'd4'],
+          ['E4', 'e4'],
+          ['F4', 'f4'],
+          ['G4', 'g4'],
+        ],
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 270,
+  }
+
+
+Blockly.Blocks['sound_block'] = {
+  init: function() {
+    this.jsonInit(sound_block)
+    this.setTooltip('Select notes to play. Acquired as a reward for completing a challenge.')
+  }
+}
+
+const locked_sound_block = {
+  type: 'locked_sound_block',
+  message0: 'Play %1',
+  args0: [
+      {
+        type: 'field_dropdown',
+        name: 'SOUND',
+        options: [
+          ['C4', 'sounds/c4.m4a'],
+          ['D4', 'sounds/d4.m4a'],
+          ['E4', 'sounds/e4.m4a'],
+          ['F4', 'sounds/f4.m4a'],
+          ['G4', 'sounds/g4.m4a'],
+        ],
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 270,
+  }
+
+
+Blockly.Blocks['locked_sound_block'] = {
+  init: function() {
+    this.jsonInit(locked_sound_block)
+    this.setTooltip('Unlock this block by completing the challenge of the previous exercise. Plays sounds.')
+    this.setDisabledReason(true, "locked")
+  }
+}
+
+const variableBlock = {
+  type: 'variable_block',
+}
+
+Blockly.Blocks['variable_block'] = {
+  init: function() {
+    this.appendValueInput('VALUE')
+    .appendField('const i =');
+    this.setInputsInline(true)
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip('');
+    this.setColour(195);
+  }
+}

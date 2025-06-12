@@ -2,12 +2,14 @@ import BlocklyComponent, {Block, Value, Field, Shadow, Category} from '../blockl
 import '../blockly/blocks/customblocks.js';
 import '../blockly/generator/generator';
 
-const Exercise2 = ({appReference, updatePoints, points, rewardBlocks, setRewardBlock}) => {
+const Exercise2 = ({appReference, updatePoints, points, badgeStates, setBadgeStates, rewardBlocks, setRewardBlock}) => {
     return (
         <BlocklyComponent 
         appReference={appReference}
         exerciseNumber={"2"}
         updatePoints={updatePoints}
+        badgeStates={badgeStates}
+        setBadgeStates={setBadgeStates}
         rewardBlocks={rewardBlocks}
         setRewardBlock={setRewardBlock}
         points={points}

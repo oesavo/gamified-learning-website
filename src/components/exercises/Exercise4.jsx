@@ -2,12 +2,16 @@ import BlocklyComponent, {Block, Value, Field, Shadow, Category} from '../blockl
 import '../blockly/blocks/customblocks.js';
 import '../blockly/generator/generator';
 
-const Exercise3 = ({appReference, updatePoints, points, badgeStates, setBadgeStates, rewardBlocks, setRewardBlock}) => {
+const Exercise4 = ({appReference, updatePoints, points, badgeStates, setBadgeStates, rewardBlocks, setRewardBlock}) => {
+    let unlockableBlock = <Block type="locked_sound_block"></Block>
+    if (rewardBlocks.get("rewardBlock") === true) {
+      unlockableBlock = <Block type="sound_block"></Block>
+    }
     return (
       <>
         <BlocklyComponent
             appReference={appReference}
-            exerciseNumber={"3"}
+            exerciseNumber={"4"}
             updatePoints={updatePoints}
             points={points}
             rewardBlocks={rewardBlocks}
@@ -17,16 +21,14 @@ const Exercise3 = ({appReference, updatePoints, points, badgeStates, setBadgeSta
             sounds={false}
             readOnly={false}
             trashcan={true}
-            maxBlocks={20}
+            maxBlocks={50}
             move={{
               scrollbars: true,
               drag: true,
               wheel: true,
           }}
           initialXml={`<xml xmlns="http://www.w3.org/1999/xhtml"></xml>`}>
-          <Block type="variable_block"></Block>
-          <Block type="win_block"></Block>
-          <Block type="lists_indexOf"></Block>
+          {unlockableBlock}
           <Block type="text_append"></Block>
           <Block type="text_join"></Block>
           <Block type="text_length"></Block>
@@ -72,4 +74,4 @@ const Exercise3 = ({appReference, updatePoints, points, badgeStates, setBadgeSta
     )
 }
 
-export default Exercise3
+export default Exercise4
