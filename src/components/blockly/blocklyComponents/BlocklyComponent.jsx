@@ -137,17 +137,18 @@ function BlocklyComponent(props) {
         setCurrentExercisePoints(1)
       }
     }
-    if (exerciseNumber === "3" && currentAnswers.answer.find(checkAnswer) === correctAnswer) {
-      setPassCondition(true)
-      setCurrentExercisePoints(3)
+    //Temporary scoring for exercise 3
+    if (exerciseNumber === "3") {
+      //setPassCondition(true)
+      setCurrentExercisePoints(1)
       setBlockUnlocked(true)
       setRewardBlocks(rewardBlocks.set("rewardBlock", true))
     }
     MusicMaker.play()
+    //console.log(primaryWorkspace.current.getAllBlocks()[0].type)
   }
   
   const generateCode = () => {
-    //console.log(primaryWorkspace.current.getAllBlocks()[0].type)
     MusicMaker.queue_ = []
     currentAnswers.answer = []
     let apple=5

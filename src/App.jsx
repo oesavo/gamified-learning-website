@@ -19,9 +19,9 @@ import Exercise4 from './components/exercises/Exercise4.jsx';
 
 const App = () => {
 
-  const [instructionsText, setInstructionsText] = useState(instructions.exercise3.task)
-  const [challengeText, setChallengeText] = useState(instructions.exercise3.challenge)
-  const [exerciseNo, setExerciseNo] = useState("Exercise 3")
+  const [instructionsText, setInstructionsText] = useState(instructions.exercise1.task)
+  const [challengeText, setChallengeText] = useState("")
+  const [exerciseNo, setExerciseNo] = useState("Exercise 1")
   
   const [badgeStates, setBadgeStates] = useState(new Map([
     ["Exercise2Efficiency", false]
@@ -78,7 +78,7 @@ const App = () => {
       setExercise(<Exercise4 badgeStates={badgeStates} setBadgeStates={setBadgeCollected} appReference={switchToExercise1} rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} updatePoints={setExercisePoints} points={exercisePoints}></Exercise4>)
   }
 
-  const [exercise, setExercise] = useState(<Exercise3 rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} badgeStates={badgeStates} setBadgeStates={setBadgeCollected} appReference={switchToExercise4} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
+  const [exercise, setExercise] = useState(<Exercise1 appReference={switchToExercise2} updatePoints={setExercisePoints} points={exercisePoints}></Exercise1>)
 
   return(
     <div id='mainDiv'>

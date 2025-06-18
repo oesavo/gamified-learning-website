@@ -1,3 +1,11 @@
+The frontend of "JavaScript Gamified" master's project.
+
+Run the project in dev build from command line by navigating to the gamified_learning_platform_frontend folder and run the command:
+
+npm run dev
+
+Alternatively, you can open the hosted backend on https://gamified-learning-backend.onrender.com but the instance has to be turned on first before the site can be loaded.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

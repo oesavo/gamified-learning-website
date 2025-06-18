@@ -20,10 +20,10 @@
         "challenge": "Challenge: Solve the exercise with maximum of 4 blocks to unlock a new badge!"
     },
     "exercise3": {
-        "task": "You are given an array variable that has integers in it. Sort the integers into a rising order. NEED: a block that has the array, block that gets a value from the list, block that sets the value, something to check the answer with. Could just always assign the array whenever code is run and check that",
+        "task": "This exercise will be finalized by the survey. For now you can use the win block to clear this exercise and get the reward block for the last one. ",
         "challenge": "Challenge: Use --- block to clear the exercise."
     },
     "exercise4": {
-        "task": "Thank you for your participation! This is the last exercise where you can freely play with the reward block! You can still go back to the previous exercise to unlock the play notes block if you want to. Please remember to participate in the survey!"
+        "task": "Thank you for your participation! This is the last exercise where you can freely play with the reward block! (Note that it plays sounds!) You can still go back to the previous exercise to unlock the play notes block if you want to. Please remember to participate in the survey!"
     }
 }
