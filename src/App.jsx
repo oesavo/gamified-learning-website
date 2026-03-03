@@ -20,13 +20,15 @@ import Exercise4 from './components/exercises/Exercise4.jsx';
 const App = () => {
 
   const [instructionsText, setInstructionsText] = useState(instructions.exercise1.task)
-  const [challengeText, setChallengeText] = useState("")
-  const [exerciseNo, setExerciseNo] = useState("Exercise 1")
-  
+  const [challengeText, setChallengeText] = useState(instructions.exercise1.challenge)
+  const [exerciseNo, setExerciseNo] = useState(instructions.exercise1.title)
+
   const [badgeStates, setBadgeStates] = useState(new Map([
-    ["Exercise2Efficiency", false]
+    ["Exercise2ForLoop", false],
+    ["Exercise4Musician", false]
   ]))
   const [badgeCollected, setBadgeCollected] = useState(false)
+  const [bonusCollected, setBonusCollected] = useState(false)
 
   const [openDialog, setOpenDialog] = useState(true)
   const [helpDialogText, setHelpDialogText] = useState([
@@ -47,35 +49,36 @@ const App = () => {
         ["4", -1]
         ]))
   const badges = (new Map([
-    ["Exercise 2",<Stack direction="row"><Badge collectedState={badgeCollected} achievementTitle={"Efficiency"} achievementDescription={instructions.badges.exercise3} helpDialogSetter={handleDialogOpen} helpTextSetter={setHelpDialogText}/><Badge/></Stack>],
-    ["Exercise 4",<Stack direction="row"></Stack>]
+    ["Exercise 2 - Apple loop",<Stack direction="row"><Badge collectedState={badgeCollected} achievementTitle={"For looper"} achievementDescription={instructions.badges.exercise2} helpDialogSetter={handleDialogOpen} helpTextSetter={setHelpDialogText} iconImage={"Loop"}/><Badge/></Stack>],
+    ["Exercise 4 - Lotto numbers",<Stack direction="row"><Badge collectedState={bonusCollected} achievementTitle={"Musician"} achievementDescription={instructions.badges.exercise4} helpDialogSetter={handleDialogOpen} helpTextSetter={setHelpDialogText} iconImage={"MusicNote"}/><Badge/></Stack>]
   ]))
   const [rewardBlocks, setRewardBlocks] = useState(new Map([
     ["rewardBlock", false]
   ]))
 
   const switchToExercise1 = () => {
-      setExerciseNo("Exercise 1")
+      setExerciseNo(instructions.exercise1.title)
       setInstructionsText(instructions.exercise1.task)
+      setChallengeText(instructions.exercise1.challenge)
       setExercise(<Exercise1 appReference={switchToExercise2} updatePoints={setExercisePoints} points={exercisePoints}></Exercise1>)
   }
   const switchToExercise2 = () => {
-      setExerciseNo("Exercise 2")
+      setExerciseNo(instructions.exercise2.title)
       setInstructionsText(instructions.exercise2.task)
       setChallengeText(instructions.exercise2.challenge)
       setExercise(<Exercise2 appReference={switchToExercise3} badgeStates={badgeStates} setBadgeStates={setBadgeCollected} rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} updatePoints={setExercisePoints} points={exercisePoints}></Exercise2>)
   }
   const switchToExercise3 = () => {
-      setExerciseNo("Exercise 3")
+      setExerciseNo(instructions.exercise3.title)
       setInstructionsText(instructions.exercise3.task)
       setChallengeText(instructions.exercise3.challenge)
       setExercise(<Exercise3 badgeStates={badgeStates} setBadgeStates={setBadgeCollected} appReference={switchToExercise4} rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} updatePoints={setExercisePoints} points={exercisePoints}></Exercise3>)
   }
   const switchToExercise4 = () => {
-      setExerciseNo("Exercise 4")
+      setExerciseNo(instructions.exercise4.title)
       setInstructionsText(instructions.exercise4.task)
       setChallengeText(undefined)
-      setExercise(<Exercise4 badgeStates={badgeStates} setBadgeStates={setBadgeCollected} appReference={switchToExercise1} rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} updatePoints={setExercisePoints} points={exercisePoints}></Exercise4>)
+      setExercise(<Exercise4 setHelpDialogText={setHelpDialogText} setOpenDialog={setOpenDialog} badgeStates={badgeStates} setBadgeStates={setBonusCollected} appReference={switchToExercise1} rewardBlocks={rewardBlocks} setRewardBlock={setRewardBlocks} updatePoints={setExercisePoints} points={exercisePoints}></Exercise4>)
   }
 
   const [exercise, setExercise] = useState(<Exercise1 appReference={switchToExercise2} updatePoints={setExercisePoints} points={exercisePoints}></Exercise1>)

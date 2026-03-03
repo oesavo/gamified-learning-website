@@ -1,5 +1,6 @@
 {
-    "exercise1": "'Hello world!'",
+    "exercise1": "console.log('Hello world!');",
     "exercise2": 10,
-    "exercise3": null
+    "exercise3": "",
+    "exercise4": ""
 }

@@ -17,27 +17,13 @@ const Exercise3 = ({appReference, updatePoints, points, badgeStates, setBadgeSta
             sounds={false}
             readOnly={false}
             trashcan={true}
-            maxBlocks={20}
+            maxBlocks={15}
             move={{
               scrollbars: true,
               drag: true,
               wheel: true,
           }}
           initialXml={`<xml xmlns="http://www.w3.org/1999/xhtml"></xml>`}>
-          <Block type="variable_block"></Block>
-          <Block type="win_block"></Block>
-          <Block type="lists_indexOf"></Block>
-          <Block type="text_append"></Block>
-          <Block type="text_join"></Block>
-          <Block type="text_length"></Block>
-          <Block type="text_isEmpty"></Block>
-          <Block type="text_indexOf"></Block>
-          <Block type="text_charAt"></Block>
-          <Block type="text_getSubstring"></Block>
-          <Block type="text_changeCase"></Block>
-          <Block type="text_count"></Block>
-          <Block type="text_replace"></Block>
-          <Block type="text_reverse"></Block>
           <Block type="text_prompt_ext"></Block>
           <Block type="print_block"></Block>
           <Block type="variables_set"></Block>
@@ -48,23 +34,11 @@ const Exercise3 = ({appReference, updatePoints, points, badgeStates, setBadgeSta
           </Block>
           <Block type="controls_ifelse" />
           <Block type="logic_compare" />
-          <Block type="logic_operation" />
           <Block type="controls_repeat_ext">
             <Value name="TIMES">
               <Shadow type="math_number">
                 <Field name="NUM"></Field>
               </Shadow>
-            </Value>
-          </Block>
-          <Block type="logic_operation" />
-          <Block type="logic_negate" />
-          <Block type="logic_boolean" />
-          <Block type="logic_ternary" />
-          <Block type="text_charAt">
-            <Value name="VALUE">
-              <Block type="variables_get">
-                <Field name="VAR"></Field>
-              </Block>
             </Value>
           </Block>
         </BlocklyComponent>

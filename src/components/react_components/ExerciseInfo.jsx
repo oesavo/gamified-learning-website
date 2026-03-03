@@ -20,9 +20,11 @@ const ExerciseInfo = ({exerciseNo, instructionsText, challengeText, achievements
                   <Typography variant='overline'>{exerciseNo}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography variant='body2' sx={{marginBottom: 1}}>Task: {instructionsText}</Typography>
-                  <Divider sx={{bgcolor: 'lightslategray'}}/>
-                  <Typography variant='body3' sx={{fontWeight: "bold"}}>{challengeText}</Typography>
+                  <Typography variant='body2' sx={{marginBottom: 1, fontWeight: "bold"}}>Task:</Typography>
+                  <Typography variant='body2' sx={{marginBottom: 1}}>{instructionsText}</Typography>
+                  <Divider sx={{bgcolor: 'lightslategray', marginBottom: 1}}/>
+                  <Typography variant='body2' sx={{fontWeight: "bold"}}>Challenge:</Typography>
+                  <Typography variant='body2' >{challengeText}</Typography>
                   {achievements}
                 </AccordionDetails>
               </Accordion>

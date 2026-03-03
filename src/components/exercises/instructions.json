@@ -2,28 +2,39 @@
     "dialogTexts": {
         "introduction": {
             "title": "Welcome to JavaScript with Blockly!",
-            "text": "Thank you for participating in testing the gamified JavaScript learning app prototype! There are three exercises where different elements of gamification are introduced and a fourth extra one. You can answer the questioneer of how you felt about the different gamification elements after clearing the exercises. Please close this dialog by clicking anywhere and start moving the blocks according to the instructions on the screen."
+            "text": "Thank you for participating in the testing of this prototype JavaScript learning tool! There are four gamified exercises with different gamification elements scattered around. The focus of the research is on the engagement gamified elements provide in this experience. You can close this dialog and start coding with the blocks."
         },
         "help": {
             "title": "How to use Blockly:",
-            "text": "Select blocks from the toolbox on the right and connect them to generate code. Press the evaluate button to attempt clearing the exercise. You can get more information on what each block does by hovering over them. After clearing a level you can switch to earlier one from the menu on top right corner."
+            "text": "(1) Select blocks from the toolbox on the right and connect them to generate code. (2) Press the evaluate button to attempt clearing the exercise. Check if your code prints something by opening your browser console using 'Ctrl + Shift + J'. (3) You can get more information on what each block does by hovering over them. (4) Right clicking blocks lets you copy and delete them as well. (5) After clearing a level you can switch to earlier one from the menu on top right corner. (6) If an exercise doesn't seem to work, remember to use the variable names mentioned in the exercise description. Extra blocks may also interfere with clearing an exercise so try to remove blocks that are not used."
+        },
+        "end": {
+            "title": "Congrats!",
+            "text": "Thank you for participating! This was the last exercise and next we can discuss what you thought of it \\(^o^)/"
         }
     },
     "badges": {
-        "exercise3": "Use minimum number of blocks to solve the exercise."
+        "exercise2": "Use a for loop for the first time.",
+        "exercise4": "Make music with note blocks that you get as a reward from Exercise 3."
     },
     "exercise1": {
-        "task": "Print \"Hello world!\" in the console using the blocks on the right. You can open your browser's console to see if it works by pressing 'Ctrl + Shift + J'. Remember capital letters and the exclamation mark!"
+        "title": "Exercise 1 - Hello world!",
+        "task": "This is a tutorial for using Blockly. Print \"Hello world!\" in the console by dragging and dropping the blocks to the Blockly workspace. Open your browser's console to see if it works by pressing 'Ctrl + Shift + J'. Remember capital letters and the exclamation mark!!",
+        "challenge": "Try to clear this one ;)"
     },
     "exercise2": {
-        "task":  "You have a variable called apples that represents the number of apples you have. Find out how many apples you have by printing the variable in your console and then add more apples until you have 10.",
-        "challenge": "Challenge: Solve the exercise with maximum of 4 blocks to unlock a new badge!"
+        "title": "Exercise 2 - Apple loop",
+        "task":  "You have a variable called apples that represents the number of apples you have. You also have ready functions for changing the number of apples. Find out how many apples you have and then change the number to 10 in one go. Try to use the apple functions as little as possible!",
+        "challenge": "Badge: Solve the exercise using a 'count with i' loop block to unlock a new badge!"
     },
     "exercise3": {
-        "task": "This exercise will be finalized by the survey. For now you can use the win block to clear this exercise and get the reward block for the last one. ",
-        "challenge": "Challenge: Use --- block to clear the exercise."
+        "title": "Exercise 3 - Age verifier",
+        "task": "Your task is to create a code that asks for the user's age. Create a variable called 'age' to do this and give it the user's age. If the user is under 15, print \"Must be at least 15 to access\" and print \"Welcome\" if they are 15 or above.",
+        "challenge": "Reward: Use the 'prompt for text' block to clear the exercise. Type 'How old are you?' as the text prompt and give a number when you run the code."
     },
     "exercise4": {
-        "task": "Thank you for your participation! This is the last exercise where you can freely play with the reward block! (Note that it plays sounds!) You can still go back to the previous exercise to unlock the play notes block if you want to. Please remember to participate in the survey!"
+        "title": "Exercise 4 - Lotto numbers",
+        "task": "Create an array called 'lotto numbers' that has seven random numbers from 1 to 40 (the numbers can show up multiple times). Loop through this array using a variable called 'i' and print the lotto numbers to your console. Tip: Blocks can be copied through right click menu.",
+        "challenge": "Bonus: Use note blocks in your code."
     }
 }

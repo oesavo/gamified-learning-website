@@ -59,6 +59,8 @@ function BlocklyComponent(props) {
   const setRewardBlocks = props.setRewardBlocks
   const musicPlayer = MusicMaker
 
+  let currentCode = ""
+
   const handleClear = () => {
     setSolveDialogOpen(true)
   }
@@ -75,6 +77,13 @@ function BlocklyComponent(props) {
     primaryWorkspace.current.dispose()
     updatePoints(points.set(exerciseNumber,currentExercisePoints))
     switchToNextExercise()
+    if (exerciseNumber === "4") {
+      props.setHelpDialogText([
+        "Congrats!",
+        "Thank you for participating! This was the last exercise and next we can discuss what you thought of it \\(^o^)/"]
+      )
+      props.setOpenDialog(true)
+    }
   }
 
   const openWarning = () => {
@@ -108,57 +117,103 @@ function BlocklyComponent(props) {
   }
 
   const checkAnswer = () => {
-    let correctAnswer = null
-    function checkAnswer(answer) {
-      if (exerciseNumber === "1") {
-        correctAnswer = modelAnswers.exercise1
-        return answer === modelAnswers.exercise1
+    if (exerciseNumber === "1") {
+        if (currentCode.includes(modelAnswers.exercise1)) {
+          setPassCondition(true)
+          setCurrentExercisePoints(3)
+        } else if ((currentCode.includes("console.log('hello world!');")) || (currentCode.includes("console.log('Hello world');"))) {
+          setPassCondition(true)
+          setCurrentExercisePoints(2)
+        } else if (currentCode.includes("console.log('hello world');")) {
+          setPassCondition(true)
+          setCurrentExercisePoints(1)
+        }
       }
-      if (exerciseNumber === "2") {
-        correctAnswer = modelAnswers.exercise2
-        return answer === modelAnswers.exercise2
-      }
-      if (exerciseNumber === "3") {
-        correctAnswer = modelAnswers.exercise3
-        return answer === modelAnswers.exercise3
-      }
-    }
-    if (currentAnswers.answer.find(checkAnswer) === correctAnswer) {
-      setPassCondition(true)
-      setCurrentExercisePoints(3)
-    }
-    if (currentAnswers.apple === 10) {
-      setPassCondition(true)
-      if (primaryWorkspace.current.getAllBlocks().length <= 4) {
-        setCurrentExercisePoints(3)
-      } else if (primaryWorkspace.current.getAllBlocks().length === 5) {
-        setCurrentExercisePoints(2)
-      } else {
-        setCurrentExercisePoints(1)
+    if (exerciseNumber === "2") {
+      if (currentAnswers.apple === 10) {
+        setPassCondition(true)
+        if (primaryWorkspace.current.getAllBlocks().length <= 6) {
+          setCurrentExercisePoints(3)
+        } else if ((primaryWorkspace.current.getAllBlocks().length >= 7) && (primaryWorkspace.current.getAllBlocks().length < 9)) {
+          setCurrentExercisePoints(2)
+        } else {
+          setCurrentExercisePoints(1)
+        }
       }
     }
-    //Temporary scoring for exercise 3
     if (exerciseNumber === "3") {
-      //setPassCondition(true)
-      setCurrentExercisePoints(1)
-      setBlockUnlocked(true)
+        if (currentCode.includes(`var age;`) && (currentCode.includes(`if (age >= 15) {
+  `) || currentCode.includes(`if (15 <= age) {
+  `) || currentCode.includes(`if (age > 14) {
+  `) || currentCode.includes(`if (14 < age) {
+  `)) 
+&& currentCode.includes(
+  `console.log('Welcome');
+} else {
+  console.log('Must be at least 15 to access');`
+)) {
+  if (currentCode.includes(`age = window.prompt('How old are you?');`)) {
+    setPassCondition(true)
+    setCurrentExercisePoints(3)
+    setBlockUnlocked(true)
+    if (rewardBlocks.get("rewardBlock") != true) {
       setRewardBlocks(rewardBlocks.set("rewardBlock", true))
     }
-    MusicMaker.play()
-    //console.log(primaryWorkspace.current.getAllBlocks()[0].type)
+  } else if (currentCode.includes(`age =`)) {
+    setPassCondition(true)
+    setCurrentExercisePoints(2)
+  }
+  }
+}
+    if (exerciseNumber === "4") {
+      let musicUsed = false
+      primaryWorkspace.current.getAllBlocks().forEach((block) => {
+      if ((block.type === "sound_block")) {
+        musicUsed = true
+      }})
+      if (musicUsed) {
+        setBadgeStates(badgeStates.set("Exercise4Musician",true))
+        setBadgeUnlocked(true)
+      }
+      if (currentCode.includes(`var lotto_numbers, i;`) && currentCode.includes(`function mathRandomInt(a, b) {
+  if (a > b) {
+    // Swap a and b to ensure a is smaller.
+    var c = a;
+    a = b;
+    b = c;
+  }
+  return Math.floor(Math.random() * (b - a + 1) + a);
+}`)
+&& ((currentCode.includes(`for (var i_index in lotto_numbers) {
+  i = lotto_numbers[i_index];`) 
+&& currentCode.includes(`  console.log(i);`)) || (currentCode.includes(`for (i = 1; i <= 7; i++) {`) 
+&& currentCode.includes(`  console.log((lotto_numbers[(i - 1)]));`)))
+) {
+  if (currentCode.includes(`lotto_numbers = [mathRandomInt(1, 40), mathRandomInt(1, 40), mathRandomInt(1, 40), mathRandomInt(1, 40), mathRandomInt(1, 40), mathRandomInt(1, 40), mathRandomInt(1, 40)];`)) {
+    setPassCondition(true)
+    setCurrentExercisePoints(3)
+  } else if (currentCode.includes(`lotto_numbers = [mathRandomInt(0, 40), mathRandomInt(0, 40), mathRandomInt(0, 40), mathRandomInt(0, 40), mathRandomInt(0, 40), mathRandomInt(0, 40), mathRandomInt(0, 40)];`)) {
+    setPassCondition(true)
+    setCurrentExercisePoints(2)
+  } else if (currentCode.includes(`lotto_numbers = [mathRandomInt(0, 40), mathRandomInt(0, 40), mathRandomInt(0, 40)`) || currentCode.includes(`lotto_numbers = [mathRandomInt(1, 40), mathRandomInt(1, 40), mathRandomInt(1, 40)`)) {
+    setPassCondition(true)
+    setCurrentExercisePoints(1)
+  }
+}
+      MusicMaker.play()
+    }
   }
   
   const generateCode = () => {
     MusicMaker.queue_ = []
-    currentAnswers.answer = []
-    let apple=5
-    let i = undefined
-    var code = javascriptGenerator.workspaceToCode(primaryWorkspace.current);
+    let apple=1
+    let code = javascriptGenerator.workspaceToCode(primaryWorkspace.current);
     let outputArea = document.getElementById("output")
     outputArea.value = "Program output: \n\n" + code
     try {
       //console.log(code)
       eval(code)
+      currentCode = code
     } catch(error) {
       console.log(error)
     }
@@ -168,9 +223,21 @@ function BlocklyComponent(props) {
 
   const checkPassCondition = () => {
     if (passCondition) {
-      if (exerciseNumber === "2" && primaryWorkspace.current.getAllBlocks().length <= 4) {
-        setBadgeStates(badgeStates.set("Exercise2Efficiency",true))
-        setBadgeUnlocked(true)
+      if (exerciseNumber === "2") {
+        let repeatNotUsed = true
+        let forUsed = false
+        primaryWorkspace.current.getAllBlocks().forEach((block) => {
+          if (block.type === "controls_repeat") {
+            repeatNotUsed = false
+          }
+          if ((block.type === "controls_for")) {
+            forUsed = true
+          }
+        })
+        if (repeatNotUsed && forUsed) {
+          setBadgeStates(badgeStates.set("Exercise2ForLoop",true))
+          setBadgeUnlocked(true)
+        }
       }
       handleClear()
     } else {
@@ -217,7 +284,6 @@ function BlocklyComponent(props) {
         primaryWorkspace.current,
       );
     }
-    primaryWorkspace.current.createVariable("i")
   }, [primaryWorkspace, toolbox, blocklyDiv, props]);
 
   return (

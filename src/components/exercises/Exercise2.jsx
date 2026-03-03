@@ -16,19 +16,21 @@ const Exercise2 = ({appReference, updatePoints, points, badgeStates, setBadgeSta
         sounds={false}
         readOnly={false}
         trashcan={true}
-        maxBlocks={10}
+        maxBlocks={15}
         move={{
           scrollbars: true,
           drag: true,
           wheel: true,
       }}
       initialXml={`<xml xmlns="http://www.w3.org/1999/xhtml"></xml>`}>
-        <Block type="controls_repeat"></Block>
         <Block type="math_number">
             <Field name="NUM" NUM={10}></Field>
         </Block>
-        <Block type="add_one_block"></Block>
+        <Block type="controls_repeat"></Block>
+        <Block type="controls_for" />
         <Block type="variable_apple"></Block>
+        <Block type="add_variable_apple"></Block>
+        <Block type="remove_variable_apple"></Block>
     </BlocklyComponent>
     )
 }
