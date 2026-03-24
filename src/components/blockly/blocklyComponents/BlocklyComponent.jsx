@@ -18,6 +18,7 @@ import d4 from './sounds/d4.m4a'
 import e4 from './sounds/e4.m4a'
 import f4 from './sounds/f4.m4a'
 import g4 from './sounds/g4.m4a'
+import MusicQueue from './music_maker_queue.json' with {type: 'json'}
 
 //Imports Blockly
 import * as Blockly from 'blockly/core';
@@ -98,19 +99,19 @@ function BlocklyComponent(props) {
 
   const playSound = (sound) => {
     switch (sound) {
-      case 'c4':
+      case '\'c4\'':
         MusicMaker.queueSound(c4)
         break
-      case 'd4':
+      case '\'d4\'':
         MusicMaker.queueSound(d4)
         break
-      case 'e4':
+      case '\'e4\'':
         MusicMaker.queueSound(e4)
         break
-      case 'f4':
+      case '\'f4\'':
         MusicMaker.queueSound(f4)
         break
-      case 'g4':
+      case '\'g4\'':
         MusicMaker.queueSound(g4)
         break
     }
@@ -206,14 +207,18 @@ function BlocklyComponent(props) {
   
   const generateCode = () => {
     MusicMaker.queue_ = []
+    MusicQueue.queue = []
     let apple=1
     let code = javascriptGenerator.workspaceToCode(primaryWorkspace.current);
     let outputArea = document.getElementById("output")
     outputArea.value = "Program output: \n\n" + code
     try {
       //console.log(code)
-      eval(code)
+      eval(javascriptGenerator.workspaceToCode(primaryWorkspace.current))
       currentCode = code
+      MusicQueue.queue.forEach((note) => {
+        playSound(note)
+      })
     } catch(error) {
       console.log(error)
     }

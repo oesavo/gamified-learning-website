@@ -1,5 +1,6 @@
 import {javascriptGenerator} from 'blockly/javascript';
 import answers from '../../exercises/currentAnswers.json' with {type: 'json'}
+import music_queue from '../blocklyComponents/music_maker_queue.json' with {type: 'json'}
 
 javascriptGenerator.forBlock['win_block'] = function () {
   console.log('voitit pelin')
@@ -8,7 +9,6 @@ javascriptGenerator.forBlock['win_block'] = function () {
 
 javascriptGenerator.forBlock['print_block'] = function(block) {
   const value_printableobject = javascriptGenerator.valueToCode(block, 'PRINTVALUE', 1)
-  answers.answer = answers.answer.concat(value_printableobject)
   const code = 'console.log('+ value_printableobject + ');\n'
   return code;
 }
@@ -31,6 +31,6 @@ javascriptGenerator.forBlock['remove_variable_apple'] = function(block) {
 
 javascriptGenerator.forBlock['sound_block'] = function(block) {
   const value = "'" + block.getFieldValue('SOUND') + "'";
-  const code = 'playSound(' + value + ');\n';
-  return code
+  music_queue.queue = music_queue.queue.concat(value)
+  return 'console.log(' + value +');\n'
 }
